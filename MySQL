@@ -1,0 +1,68 @@
+Step 1
+Update the Repository
+
+sudo apt-get update
+
+Step 2
+install mysql server
+
+sudo apt install mysql-server
+
+Step 3
+start and enable the service
+
+systemctl start mysql.service
+systemctl enable –now mysql.service
+
+Step 4
+install mysql securely
+
+mysql_secure_installation
+
+Step 5
+login mysql with root user
+
+mysql -u root -p
+Password: ********
+
+Localhost: specifies that this user can only connect to the MySQL server if they are on the same machine where the MySQL server is running.
+
+%: If you want the user to connect from any host (not just the local machine), you can use %as the host
+
+Step 6
+Creating a new user and assiging the password
+
+CREATE USER 'new_user'@'localhost' IDENTIFIED BY 'new_password';
+
+Step 7
+provide all access to user
+
+GRANT ALL PRIVILEGES ON *.* TO 'new_user'@'localhost';
+
+Step 8
+Provide specific database and tables permission to user
+
+GRANT PRIVILEGE ON database.table TO 'username'@'host';
+
+Step 9
+make changes apply immediately
+
+FLUSH PRIVILEGES;
+
+Step 10
+change password of user
+
+ALTER USER 'your_username'@'localhost' IDENTIFIED BY 'new_password';
+
+Step 11
+Changing the root user password
+
+    1. sudo /etc/init.d/mysql stop
+    2. mkdir /var/run/mysqld
+    3. chown mysql /var/run/mysqld
+    4. mysqld_safe –skip-grant-tables&
+    5. mysql –user=root mysql
+    6. UPDATE mysql.user SET authentication_string=null WHERE User='root';
+    7. flush privileges;
+    8. ALTER USER 'your_username'@'localhost' IDENTIFIED WITH MYSQL_NATIVE_PASSWORD BY 'new_password';
+    9. flush privileges;
